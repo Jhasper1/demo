@@ -104,7 +104,7 @@ fs.watch(COMMANDS_PATH, (eventType, filename) => {
 });
 
 // Server initialization
-const PORT = process.env.PORT || 10000;
+const PORT = process.env.PORT || 4000;
 app.listen(PORT, async () => {
   console.log(`Server is running on port ${PORT}`);
   // Load Messenger Menu Commands asynchronously after the server starts
