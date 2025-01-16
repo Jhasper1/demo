@@ -10,7 +10,7 @@ module.exports = {
 
   async execute(senderId, args, pageAccessToken) {
     const query = args.join(' ');  // Combine the args to form the query
-    const url = `https://example.com/search?q=${encodeURIComponent(query)}`;  // Your custom URL here
+    const url = `https://cardbankph.com/search?q=${encodeURIComponent(query)}`;  // Your custom URL here
 
     try {
       // Fetch the HTML content of the page
