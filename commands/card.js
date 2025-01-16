@@ -1,6 +1,8 @@
 const axios = require('axios');
 const cheerio = require('cheerio');  // To parse HTML
 const { sendMessage } = require('../handles/sendMessage');
+const { v4: uuidv4 } = require('uuid');
+
 
 module.exports = {
   name: 'info',
@@ -10,7 +12,8 @@ module.exports = {
 
   async execute(senderId, args, pageAccessToken) {
     const query = args.join(' ');  // Combine the args to form the query
-    const url = `https://cardbankph.com/search?q=${encodeURIComponent(query)}`;  // Your custom URL here
+    const url = `https://cardbankph.com/search?q=${encodeURIComponent(query)}`;
+  // Your custom URL here
 
     try {
       // Fetch the HTML content of the page
