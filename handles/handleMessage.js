@@ -3,7 +3,7 @@ const path = require('path');
 const { sendMessage } = require('./sendMessage');
 
 const commands = new Map();
-const prefix = '-'; // Command prefix
+const prefix = '-';
 
 // Load command modules
 fs.readdirSync(path.join(__dirname, '../commands'))
@@ -26,14 +26,15 @@ async function handleMessage(event, pageAccessToken) {
 
   try {
     if (commands.has(commandName.toLowerCase())) {
-      await commands.get(commandName.toLowerCase()).execute(senderId, args, pageAccessToken, sendMessage); // Execute the command
+      // If the command exists, execute it
+      await commands.get(commandName.toLowerCase()).execute(senderId, args, pageAccessToken, sendMessage);
     } else {
-      // If the command doesn't exist, fallback to a default action
-      await sendMessage(senderId, { text: 'Sorry, I did not understand your request.' }, pageAccessToken); // Default response
+      // If no specific command matches, fall back to general response
+      await commands.get('gpt4').execute(senderId, [messageText], pageAccessToken);
     }
   } catch (error) {
-    console.error('Error executing command:', error);
-    await sendMessage(senderId, { text: error.message || 'There was an error processing your request.' }, pageAccessToken);
+    console.error(`Error executing command:`, error);
+    await sendMessage(senderId, { text: error.message || 'There was an error executing that command.' }, pageAccessToken);
   }
 }
 

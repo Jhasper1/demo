@@ -1,7 +1,5 @@
 {
-    "shipping": "We offer free shipping for orders over $50. Deliveries take 5-7 business days.",
-    "returns": "Our return policy allows you to return products within 30 days for a full refund.",
-    "contact": "You can reach us at support@example.com or call us at 123-456-7890.",
-    "hours": "Our business hours are Monday to Friday, 9 AM to 5 PM.",
-    "support": "Our support team is available via chat or email for any assistance."
+    "what is your return policy": "Our return policy allows returns within 30 days with a receipt.",
+    "how can i contact support": "You can contact our support team at support@company.com.",
+    "what are your business hours": "We are open from 9 AM to 5 PM, Monday to Friday."
 }

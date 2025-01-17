@@ -3,26 +3,36 @@ const path = require('path');
 const { sendMessage } = require('../handles/sendMessage');
 
 module.exports = {
-  name: 'help',
-  description: 'Customer service bot responding to queries based on a knowledge base.',
-  usage: 'help [query]',
-  author: 'your_name',
+  name: 'customer_service',
+  description: 'Customer service representative for answering queries',
+  usage: 'customer_service [question]',
+  author: 'Your Name',
 
   async execute(senderId, args, pageAccessToken) {
-    const query = args.join(' ').toLowerCase(); // Combine arguments to form a single query
-    try {
-      // Load the knowledge base JSON file
-      const data = JSON.parse(fs.readFileSync(path.join(__dirname, 'knowledgeBase.json'), 'utf-8'));
+    // Combine args into a single query string
+    const query = args.join(' ').toLowerCase();
 
-      // Find the relevant answer based on the query
-      const response = data[query]; // Access the answer from the knowledge base
+    try {
+      // Read the knowledge base file
+      const knowledgeBasePath = path.join(__dirname, 'knowledgeBase.json');
+      const data = JSON.parse(fs.readFileSync(knowledgeBasePath, 'utf-8'));
+
+      // Log the knowledge base data (for debugging purposes)
+      console.log('Knowledge Base:', data);
+
+      // Find the response in the knowledge base based on the query
+      const response = data[query];
+
       if (response) {
-        sendMessage(senderId, { text: response }, pageAccessToken); // Send the response to the user
+        // Send the response from the knowledge base
+        sendMessage(senderId, { text: response }, pageAccessToken);
       } else {
-        sendMessage(senderId, { text: 'Sorry, I could not find an answer for your question.' }, pageAccessToken); // Default response
+        // If no match, send a default response
+        sendMessage(senderId, { text: 'Sorry, I could not find an answer for your question.' }, pageAccessToken);
       }
     } catch (err) {
-      sendMessage(senderId, { text: 'Sorry, there was an error processing your request.' }, pageAccessToken); // Error response
+      console.error('Error:', err);
+      sendMessage(senderId, { text: 'Sorry, there was an error processing your request.' }, pageAccessToken);
     }
   }
 };
