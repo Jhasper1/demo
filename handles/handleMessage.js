@@ -26,10 +26,8 @@ async function handleMessage(event, pageAccessToken) {
 
   try {
     if (commands.has(commandName.toLowerCase())) {
-      // If the command exists, execute it
       await commands.get(commandName.toLowerCase()).execute(senderId, args, pageAccessToken, sendMessage);
     } else {
-      // If no specific command matches, fall back to general response
       await commands.get('gpt4').execute(senderId, [messageText], pageAccessToken);
     }
   } catch (error) {
